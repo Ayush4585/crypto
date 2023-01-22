@@ -19,7 +19,7 @@ const Footer = () => {
             letterSpacing={"widest"}
             textAlign={["center", "left"]}
           >
-            We are the best crypto trading app in India, we provide our guidance
+            We are the best Crypto trading app in India, we provide our guidance
             at a very cheap price.
           </Text>
         </VStack>
