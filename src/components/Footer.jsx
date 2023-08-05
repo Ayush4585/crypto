@@ -4,7 +4,7 @@ import React from "react";
 import avtr from"../assets/avatar.jpg"
 const Footer = () => {
   return (
-    <Box
+    <Box 
       bgColor={"blackAlpha.900"}
       color={"whiteAlpha.700"}
       minH={"48"}

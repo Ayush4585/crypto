@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import axios from "axios";
 import { server } from '../index';
 import { useState } from 'react';
-import { Container, Heading, HStack, Image, Text, VStack } from '@chakra-ui/react';
+import { Button, Container, Heading, HStack, Image, Input, Text, VStack } from '@chakra-ui/react';
 import Loader from './Loader';
 import ErrorComponent from './ErrorComponent';
 
@@ -11,9 +11,17 @@ const Exchanges = () => {
   const [exchanges,setExhanges]=useState([]);
   const [loading,setLoading]=useState(true);
   const [error,setError] =useState(false);
+  const [exchangeName,setExchangeName] = useState("")
 
-  useEffect(() => {
-    
+
+  const handleClick =()=>{
+    exchanges.map((i)=>(
+      (i.name).toLowerCase()===exchangeName.toLowerCase()?setExhanges([i]):setExhanges(exchanges)
+    ))
+  }
+  
+
+  useEffect(() => { 
     const fetchExhanges =async()=>{
       try {
       const {data}= await axios.get(`${server}/exchanges`);
@@ -26,7 +34,7 @@ const Exchanges = () => {
 
     }
     fetchExhanges();
-  }, [])
+  }, [exchangeName])
 
   if(error) return <ErrorComponent message={"Error while fetching Exchanges"}  />;
   
@@ -34,6 +42,23 @@ const Exchanges = () => {
     <Container maxW={"container.xl"}>
 
       {loading?<Loader/>:<>
+      <HStack>
+              <Input
+                width={"100"}
+                value={exchangeName}
+                onChange={(e)=>setExchangeName(e.target.value)}
+                placeholder="Search Exchange"
+                size="sm"
+              />
+              <Button 
+              backgroundColor={"blue.200"}
+              color={"white"}
+              onClick={handleClick}
+            >
+              Search
+            </Button>
+              
+              </HStack>
       
       <HStack wrap={"wrap"} justifyContent={"space-evenly"}>
         {
