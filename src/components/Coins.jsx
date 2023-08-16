@@ -8,7 +8,6 @@ import {
   Heading,
   HStack,
   Image,
-  Input,
   Radio,
   RadioGroup,
   Text,
@@ -24,17 +23,10 @@ const Coins = () => {
   const [error, setError] = useState(false);
   const [page, setPage] = useState(1);
   const [currency, setCurrency] = useState("inr");
-  const [coinName, setCoinName] = useState("");
   const currencySymbol =
     currency === "inr" ? "₹" : currency === "eur" ? "€" : "$";
 
-  const handleClick = () => {
-    coins.map((i) =>
-      i.name.toLowerCase() === coinName.toLowerCase()
-        ? setCoins([i])
-        : setCoins(coins)
-    );
-  };
+  
 
   const changePagePrev = () => {
     if (page > 1) {
@@ -63,7 +55,7 @@ const Coins = () => {
       }
     };
     fetchCoins();
-  }, [currency, page, coinName]);
+  }, [currency, page]);
 
   if (error) return <ErrorComponent message={"Error while fetching Coins"} />;
 
@@ -75,28 +67,10 @@ const Coins = () => {
         ) : (
           <>
             <RadioGroup value={currency} onChange={setCurrency} p={"8"}>
-              <HStack justifyContent={"space-between"}>
-                <HStack spacing={"4"}>
+              <HStack  spacing={"4"} >
                   <Radio value={"inr"}>INR</Radio>
                   <Radio value={"eur"}>EURO</Radio>
                   <Radio value={"usd"}>USD</Radio>
-                </HStack>
-                <HStack>
-                  <Input
-                    width={"100"}
-                    value={coinName}
-                    onChange={(e) => setCoinName(e.target.value)}
-                    placeholder="Search Coin"
-                    size="sm"
-                  />
-                  <Button
-                    backgroundColor={"blue.200"}
-                    color={"white"}
-                    onClick={handleClick}
-                  >
-                    Search
-                  </Button>
-                </HStack>
               </HStack>
             </RadioGroup>
 
